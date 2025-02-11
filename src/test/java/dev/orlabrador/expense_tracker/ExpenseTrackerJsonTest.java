@@ -28,8 +28,8 @@ public class ExpenseTrackerJsonTest {
 
     @BeforeEach
     void SetUp() {
-        Expense expense1 = new Expense(99L, "cosas varias", 123.45, LocalDate.now());
-        Expense expense2 = new Expense(100L, "cosas varias2", 1.00, LocalDate.now());
+        Expense expense1 = new Expense(99L, "cosas varias", 123.45, LocalDate.now(), "sarah1");
+        Expense expense2 = new Expense(100L, "cosas varias2", 1.00, LocalDate.now(), "sarah1");
 
         expenses.clear();
         expenses.add(expense1);
@@ -62,7 +62,8 @@ public class ExpenseTrackerJsonTest {
                 "id": 99,
                 "expenseDescription": "cosas varias",
                 "expenseAmount": 123.45,
-                "createdAt": "2023-10-01"
+                "createdAt": "2023-10-01",
+                "username": "sarah1"
             }
             """;
 
@@ -70,6 +71,7 @@ public class ExpenseTrackerJsonTest {
         Expense expense = json.parse(jsonContent).getObject();
 
         // Verify the deserialized object
+        assertThat(expense).isEqualTo(new Expense(99L, "cosas varias", 123.45, LocalDate.of(2023, 10, 1), "sarah1"));
         assertThat(expense.getId()).isEqualTo(99L);
         assertThat(expense.getExpenseDescription()).isEqualTo("cosas varias");
         assertThat(expense.getExpenseAmount()).isEqualTo(123.45);
