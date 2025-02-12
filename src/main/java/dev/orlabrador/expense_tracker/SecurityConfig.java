@@ -19,16 +19,20 @@ class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/v1/**")
-                        .authenticated()
-                        .anyRequest()
-                        .permitAll())
-                .httpBasic(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
-                .headers(headers -> headers
-                        .frameOptions(frameOptions -> frameOptions
-                            .sameOrigin()));
+            .authorizeHttpRequests(request -> request
+                .requestMatchers("/h2-console/**").hasRole("ADMIN") // Allow only ADMIN to access H2 console
+                .requestMatchers("/expenses/**").authenticated() // Secure API endpoints
+                .anyRequest().permitAll() // Allow all other requests
+            )
+            .httpBasic(Customizer.withDefaults())
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/h2-console/**") // Disable CSRF for H2 console
+            )
+            .headers(headers -> headers
+                .frameOptions(frameOptions -> frameOptions
+                    .sameOrigin() // Allow frames from the same origin (required for H2 console)
+                )
+            );
         return http.build();
     }
 

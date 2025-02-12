@@ -46,10 +46,10 @@ public class ExpenseTrackerJsonTest {
         // Verify the JSON output
         assertThat(jsonContent).hasJsonPathNumberValue("@.id");
         assertThat(jsonContent).extractingJsonPathNumberValue("@.id").isEqualTo(99);
-        assertThat(jsonContent).hasJsonPathStringValue("@.expenseDescription");
-        assertThat(jsonContent).extractingJsonPathStringValue("@.expenseDescription").isEqualTo("cosas varias");
-        assertThat(jsonContent).hasJsonPathNumberValue("@.expenseAmount");
-        assertThat(jsonContent).extractingJsonPathNumberValue("@.expenseAmount").isEqualTo(123.45);
+        assertThat(jsonContent).hasJsonPathStringValue("@.description");
+        assertThat(jsonContent).extractingJsonPathStringValue("@.description").isEqualTo("cosas varias");
+        assertThat(jsonContent).hasJsonPathNumberValue("@.amount");
+        assertThat(jsonContent).extractingJsonPathNumberValue("@.amount").isEqualTo(123.45);
         assertThat(jsonContent).hasJsonPathStringValue("@.createdAt");
         assertThat(jsonContent).extractingJsonPathStringValue("@.createdAt").isEqualTo(LocalDate.now().toString());
     }
@@ -60,8 +60,8 @@ public class ExpenseTrackerJsonTest {
         String jsonContent = """
             {
                 "id": 99,
-                "expenseDescription": "cosas varias",
-                "expenseAmount": 123.45,
+                "description": "cosas varias",
+                "amount": 123.45,
                 "createdAt": "2023-10-01",
                 "username": "sarah1"
             }
@@ -73,8 +73,8 @@ public class ExpenseTrackerJsonTest {
         // Verify the deserialized object
         assertThat(expense).isEqualTo(new Expense(99L, "cosas varias", 123.45, LocalDate.of(2023, 10, 1), "sarah1"));
         assertThat(expense.getId()).isEqualTo(99L);
-        assertThat(expense.getExpenseDescription()).isEqualTo("cosas varias");
-        assertThat(expense.getExpenseAmount()).isEqualTo(123.45);
+        assertThat(expense.getDescription()).isEqualTo("cosas varias");
+        assertThat(expense.getAmount()).isEqualTo(123.45);
         assertThat(expense.getCreatedAt()).isEqualTo(LocalDate.of(2023, 10, 1));
     }
 

@@ -11,10 +11,12 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table
 public class Expense {
     @Id
@@ -26,8 +28,8 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
                     generator = "expense_sequence")
     private Long id;
-    private String expenseDescription;
-    private Double expenseAmount;
+    private String description;
+    private Double amount;
     private LocalDate createdAt;
     private String username;
 }

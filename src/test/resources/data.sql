@@ -1,0 +1,6 @@
+INSERT INTO expense (id, description, amount, created_at, username) VALUES
+(99, 'Groceries', 123.45, '2024-01-15', 'sarah1'),
+(100, 'Electricity Bill', 120.00, '2024-01-20', 'sarah1'),
+(101, 'Internet Subscription', 50.00, '2024-01-25', 'sarah1'),
+(102, 'Dinner at Restaurant', 85.50, '2024-02-01', 'sarah1'),
+(103, 'Movie Tickets', 30.00, '2024-02-05', 'sarah1');
