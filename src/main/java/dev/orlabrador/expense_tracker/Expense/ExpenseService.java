@@ -52,4 +52,11 @@ public class ExpenseService {
         return null;
     }
 
+    public boolean deleteExpense(Long id, String username) {
+        if (expenseRepository.existsByIdAndUsername(id, username)) {
+            expenseRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

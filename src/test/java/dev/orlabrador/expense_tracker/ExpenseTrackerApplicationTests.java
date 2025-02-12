@@ -195,4 +195,29 @@ class ExpenseTrackerApplicationTests {
                 .exchange("/expenses/102", HttpMethod.PUT, request, Void.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
+
+	@Test
+	@DirtiesContext
+	void shouldDeleteAnExistingExpense() {
+		ResponseEntity<Void> response = restTemplate
+				.withBasicAuth("sarah1", "abc123")
+				.exchange("/expenses/99", HttpMethod.DELETE, null, Void.class);
+
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+		ResponseEntity<String> getResponse = restTemplate
+				.withBasicAuth("sarah1", "abc123")
+				.getForEntity("/expenses/99", String.class);
+		
+		assertThat(getResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+	}
+
+	@Test
+	void shouldNotDeleteAnExpenseThatDoesNotExist() {
+    	ResponseEntity<Void> deleteResponse = restTemplate
+            	.withBasicAuth("sarah1", "abc123")
+            	.exchange("/expenses/99999", HttpMethod.DELETE, null, Void.class);
+				
+    	assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+	}
 }
