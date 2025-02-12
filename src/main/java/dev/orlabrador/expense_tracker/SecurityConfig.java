@@ -25,9 +25,7 @@ class SecurityConfig {
                 .anyRequest().permitAll() // Allow all other requests
             )
             .httpBasic(Customizer.withDefaults())
-            .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**") // Disable CSRF for H2 console
-            )
+            .csrf(csrf -> csrf.disable())
             .headers(headers -> headers
                 .frameOptions(frameOptions -> frameOptions
                     .sameOrigin() // Allow frames from the same origin (required for H2 console)
@@ -49,8 +47,8 @@ class SecurityConfig {
                 .password(passwordEncoder.encode("abc123"))
                 .roles("USER")
                 .build();
-        UserDetails mikeHasNoExpenses = users
-                .username("mike-has-no-expenses")
+        UserDetails kumar2 = users
+                .username("kumar2")
                 .password(passwordEncoder.encode("qrs456"))
                 .roles("USER")
                 .build();
@@ -59,6 +57,6 @@ class SecurityConfig {
                 .password(passwordEncoder.encode("admin123"))
                 .roles("ADMIN")
                 .build();
-        return new InMemoryUserDetailsManager(sarah, mikeHasNoExpenses, admin);
+        return new InMemoryUserDetailsManager(sarah, kumar2, admin);
     }
 }

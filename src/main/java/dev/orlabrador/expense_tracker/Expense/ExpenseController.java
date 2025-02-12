@@ -41,7 +41,7 @@ public class ExpenseController {
         }
     }
 
-     @PostMapping
+    @PostMapping
     public ResponseEntity<Void> createExpense(@RequestBody Expense newExpenseRequest, UriComponentsBuilder ucb, Principal principal) {
         Expense savedExpense = expenseService.createExpense(newExpenseRequest, principal.getName());
         URI locationOfNewExpense = ucb
